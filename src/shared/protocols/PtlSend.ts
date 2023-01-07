@@ -2,9 +2,14 @@
 // Feel free to delete it
 
 export interface ReqSend {
-    content: string
+    content: string,
+    token:string
 }
 
 export interface ResSend {
     time: Date
+}
+
+export const conf = {
+    needLogin: true
 }

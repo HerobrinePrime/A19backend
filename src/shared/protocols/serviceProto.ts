@@ -1,12 +1,14 @@
 import { ServiceProto } from 'tsrpc-proto';
 import { MsgChat } from './MsgChat';
+import { ReqLogin, ResLogin } from './PtlLogin';
 import { ReqSend, ResSend } from './PtlSend';
-
-// This is a demo service proto file (auto generated)
-// Feel free to delete it
 
 export interface ServiceType {
     api: {
+        "Login": {
+            req: ReqLogin,
+            res: ResLogin
+        },
         "Send": {
             req: ReqSend,
             res: ResSend
@@ -18,6 +20,7 @@ export interface ServiceType {
 }
 
 export const serviceProto: ServiceProto<ServiceType> = {
+    "version": 2,
     "services": [
         {
             "id": 0,
@@ -25,9 +28,20 @@ export const serviceProto: ServiceProto<ServiceType> = {
             "type": "msg"
         },
         {
+            "id": 2,
+            "name": "Login",
+            "type": "api",
+            "conf": {
+                "needLogin": false
+            }
+        },
+        {
             "id": 1,
             "name": "Send",
-            "type": "api"
+            "type": "api",
+            "conf": {
+                "needLogin": true
+            }
         }
     ],
     "types": {
@@ -50,12 +64,50 @@ export const serviceProto: ServiceProto<ServiceType> = {
                 }
             ]
         },
+        "PtlLogin/ReqLogin": {
+            "type": "Interface",
+            "properties": [
+                {
+                    "id": 0,
+                    "name": "username",
+                    "type": {
+                        "type": "String"
+                    }
+                },
+                {
+                    "id": 1,
+                    "name": "password",
+                    "type": {
+                        "type": "String"
+                    }
+                }
+            ]
+        },
+        "PtlLogin/ResLogin": {
+            "type": "Interface",
+            "properties": [
+                {
+                    "id": 0,
+                    "name": "token",
+                    "type": {
+                        "type": "String"
+                    }
+                }
+            ]
+        },
         "PtlSend/ReqSend": {
             "type": "Interface",
             "properties": [
                 {
                     "id": 0,
                     "name": "content",
+                    "type": {
+                        "type": "String"
+                    }
+                },
+                {
+                    "id": 1,
+                    "name": "token",
                     "type": {
                         "type": "String"
                     }
