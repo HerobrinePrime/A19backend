@@ -1,3 +1,4 @@
+import { Global } from './../Global/index';
 import { ApiCall } from "tsrpc";
 import { server } from "..";
 import { ReqSend, ResSend } from "../shared/protocols/PtlSend";

@@ -1,3 +1,4 @@
+import { Global } from './Global/index';
 import * as path from "path";
 import { WsServer } from "tsrpc";
 import { serviceProto } from './shared/protocols/serviceProto';
@@ -15,6 +16,7 @@ async function init() {
 
     // TODO
     // Prepare something... (e.g. connect the db)
+    await Global.initDb()
 };
 
 // Entry function

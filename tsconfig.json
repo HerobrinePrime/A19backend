@@ -7,6 +7,7 @@
     "target": "es2018",
     "outDir": "dist",
     "strict": true,
+    "resolveJsonModule":true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
