@@ -1,12 +1,10 @@
-// This is a demo code file
-// Feel free to delete it
+import { BaseResponse,BaseRequest } from './base';
 
-export interface ReqSend {
+export interface ReqSend extends BaseRequest{
     content: string,
-    token:string
 }
 
-export interface ResSend {
+export interface ResSend extends BaseResponse {
     time: Date
 }
 

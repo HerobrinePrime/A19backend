@@ -1,9 +1,11 @@
-export interface ReqLogin {
+import { BaseResponse,BaseRequest } from './base';
+
+export interface ReqLogin extends BaseRequest {
     username:string,
     password:string
 }
 
-export interface ResLogin {
+export interface ResLogin extends BaseResponse {
     token:string 
 }
 

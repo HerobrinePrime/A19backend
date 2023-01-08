@@ -1,5 +1,5 @@
 export interface BaseRequest {
-    
+    __token?:string
 }
 
 export interface BaseResponse {
