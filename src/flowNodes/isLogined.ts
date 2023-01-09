@@ -1,7 +1,9 @@
+import { Global } from './../Global/index';
 import { ApiCall, BaseServer } from "tsrpc";
 import { secret } from '../dev.json'
 import { verify } from "jsonwebtoken";
 import { ServiceType } from "../shared/protocols/serviceProto";
+import { ObjectId } from 'mongodb';
 
 export default async function (server: BaseServer<ServiceType>) {
     server.flows.preApiCallFlow.push((call) => {
@@ -23,6 +25,18 @@ export default async function (server: BaseServer<ServiceType>) {
 
                 //unexpired pass
                 if (new Date(res.exp * 1000) > new Date()) {
+                    //拓展call currentUSer
+                    // Global.collection('users').findOne({
+                    //     _id:new ObjectId(res.id)
+                    // }).then(res =>{
+                    //     console.log(res);
+                    // })
+                    call.currentUser = {
+                        username:res.username,
+                        id:new ObjectId(res.id)
+                    }
+                    
+
                     return call
                 }
                 //expired

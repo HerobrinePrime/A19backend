@@ -1,4 +1,4 @@
-import { BaseResponse,BaseRequest } from './base';
+import { BaseResponse,BaseRequest } from '../base';
 
 export interface ReqLogin extends BaseRequest {
     username:string,
@@ -6,7 +6,7 @@ export interface ReqLogin extends BaseRequest {
 }
 
 export interface ResLogin extends BaseResponse {
-    token:string 
+    token:string ,
 }
 
 export const conf = {

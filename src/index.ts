@@ -1,16 +1,22 @@
 import { Global } from './Global/index';
 import * as path from "path";
-import { WsServer } from "tsrpc";
+import { HttpServer, WsServer } from "tsrpc";
 import { serviceProto } from './shared/protocols/serviceProto';
 import isLogined from './flowNodes/isLogined';
+import { ObjectId } from 'mongodb';
 
 // Create the Server
-export const server = new WsServer(serviceProto, {
-    port: 3000,
-    // Remove this to use binary mode (remove from the client too)
-    json: true,
+// export const server = new WsServer(serviceProto, {
+//     port: 3000,
+//     // Remove this to use binary mode (remove from the client too)
+//     json: true,
+//     logLevel:'warn',
+// });
+export const server = new HttpServer(serviceProto,{
+    port:3000,
+    json:true,
     logLevel:'warn',
-});
+})
 
 isLogined(server)
 
@@ -43,10 +49,11 @@ async function main() {
 }
 main();
 
-// declare module 'tsrpc'{
-//     export interface ApiCall{
-//         currentUser:{
-
-//         }
-//     }
-// }
+declare module 'tsrpc'{
+    export interface ApiCall{
+        currentUser:{
+            username:string,
+            id:ObjectId,
+        }
+    }
+}

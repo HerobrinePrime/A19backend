@@ -20,8 +20,8 @@ export default async function (call: ApiCall<ReqSend, ResSend>) {
     });
 
     // Broadcast
-    server.broadcastMsg('Chat', {
-        content: call.req.content,
-        time: time
-    })
+    // server.broadcastMsg('Chat', {
+    //     content: call.req.content,
+    //     time: time
+    // })
 }

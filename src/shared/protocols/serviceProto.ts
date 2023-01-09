@@ -1,13 +1,18 @@
 import { ServiceProto } from 'tsrpc-proto';
+import { ReqLogin, ResLogin } from './Login/PtlLogin';
+import { ReqTestToken, ResTestToken } from './Login/PtlTestToken';
 import { MsgChat } from './MsgChat';
-import { ReqLogin, ResLogin } from './PtlLogin';
 import { ReqSend, ResSend } from './PtlSend';
 
 export interface ServiceType {
     api: {
-        "Login": {
+        "Login/Login": {
             req: ReqLogin,
             res: ResLogin
+        },
+        "Login/TestToken": {
+            req: ReqTestToken,
+            res: ResTestToken
         },
         "Send": {
             req: ReqSend,
@@ -20,20 +25,28 @@ export interface ServiceType {
 }
 
 export const serviceProto: ServiceProto<ServiceType> = {
-    "version": 3,
+    "version": 6,
     "services": [
         {
-            "id": 0,
-            "name": "Chat",
-            "type": "msg"
-        },
-        {
-            "id": 2,
-            "name": "Login",
+            "id": 5,
+            "name": "Login/Login",
             "type": "api",
             "conf": {
                 "needLogin": false
             }
+        },
+        {
+            "id": 6,
+            "name": "Login/TestToken",
+            "type": "api",
+            "conf": {
+                "needLogin": true
+            }
+        },
+        {
+            "id": 0,
+            "name": "Chat",
+            "type": "msg"
         },
         {
             "id": 1,
@@ -45,26 +58,7 @@ export const serviceProto: ServiceProto<ServiceType> = {
         }
     ],
     "types": {
-        "MsgChat/MsgChat": {
-            "type": "Interface",
-            "properties": [
-                {
-                    "id": 0,
-                    "name": "content",
-                    "type": {
-                        "type": "String"
-                    }
-                },
-                {
-                    "id": 1,
-                    "name": "time",
-                    "type": {
-                        "type": "Date"
-                    }
-                }
-            ]
-        },
-        "PtlLogin/ReqLogin": {
+        "Login/PtlLogin/ReqLogin": {
             "type": "Interface",
             "extends": [
                 {
@@ -105,7 +99,7 @@ export const serviceProto: ServiceProto<ServiceType> = {
                 }
             ]
         },
-        "PtlLogin/ResLogin": {
+        "Login/PtlLogin/ResLogin": {
             "type": "Interface",
             "extends": [
                 {
@@ -128,6 +122,58 @@ export const serviceProto: ServiceProto<ServiceType> = {
         },
         "base/BaseResponse": {
             "type": "Interface"
+        },
+        "Login/PtlTestToken/ReqTestToken": {
+            "type": "Interface",
+            "extends": [
+                {
+                    "id": 0,
+                    "type": {
+                        "type": "Reference",
+                        "target": "base/BaseRequest"
+                    }
+                }
+            ]
+        },
+        "Login/PtlTestToken/ResTestToken": {
+            "type": "Interface",
+            "extends": [
+                {
+                    "id": 0,
+                    "type": {
+                        "type": "Reference",
+                        "target": "base/BaseResponse"
+                    }
+                }
+            ],
+            "properties": [
+                {
+                    "id": 0,
+                    "name": "username",
+                    "type": {
+                        "type": "String"
+                    }
+                }
+            ]
+        },
+        "MsgChat/MsgChat": {
+            "type": "Interface",
+            "properties": [
+                {
+                    "id": 0,
+                    "name": "content",
+                    "type": {
+                        "type": "String"
+                    }
+                },
+                {
+                    "id": 1,
+                    "name": "time",
+                    "type": {
+                        "type": "Date"
+                    }
+                }
+            ]
         },
         "PtlSend/ReqSend": {
             "type": "Interface",
