@@ -12,6 +12,8 @@ export default async function (call: ApiCall<ReqLogin, ResLogin>) {
     const user = await Global.collection('users').findOne({
         name: username,
     })
+    
+    
 
     if (user === null) return call.error('用户不存在')
     else if (user.password === password) {

@@ -1,7 +1,6 @@
 import { ServiceProto } from 'tsrpc-proto';
 import { ReqLogin, ResLogin } from './Login/PtlLogin';
 import { ReqTestToken, ResTestToken } from './Login/PtlTestToken';
-import { MsgChat } from './MsgChat';
 import { ReqSend, ResSend } from './PtlSend';
 
 export interface ServiceType {
@@ -20,7 +19,7 @@ export interface ServiceType {
         }
     },
     msg: {
-        "Chat": MsgChat
+
     }
 }
 
@@ -42,11 +41,6 @@ export const serviceProto: ServiceProto<ServiceType> = {
             "conf": {
                 "needLogin": true
             }
-        },
-        {
-            "id": 0,
-            "name": "Chat",
-            "type": "msg"
         },
         {
             "id": 1,
@@ -173,25 +167,6 @@ export const serviceProto: ServiceProto<ServiceType> = {
                     "name": "role",
                     "type": {
                         "type": "String"
-                    }
-                }
-            ]
-        },
-        "MsgChat/MsgChat": {
-            "type": "Interface",
-            "properties": [
-                {
-                    "id": 0,
-                    "name": "content",
-                    "type": {
-                        "type": "String"
-                    }
-                },
-                {
-                    "id": 1,
-                    "name": "time",
-                    "type": {
-                        "type": "Date"
                     }
                 }
             ]
