@@ -12,10 +12,10 @@ import { ObjectId } from 'mongodb';
 //     json: true,
 //     logLevel:'warn',
 // });
-export const server = new HttpServer(serviceProto,{
-    port:3000,
-    json:true,
-    logLevel:'warn',
+export const server = new HttpServer(serviceProto, {
+    port: 3000,
+    json: true,
+    logLevel: 'warn',
 })
 
 isLogined(server)
@@ -39,7 +39,7 @@ async function main() {
     //     password: 'herobine',
     // })
     // console.log(res);
-    
+
     // let res = await server.callApi('Send',{
     //     content:'asedf',
     //     __token:'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InppcmVhZWwiLCJpZCI6IjYzYjc4NGI4MmM0MzNlNTBhYWViZjg4YSIsImlhdCI6MTY3MzEwNzQwMSwiZXhwIjoxNjczNTM5NDAxfQ.SdIF6Crr7hZcf8yCg56zATN0AENLhKbEde3vzZ-JNmlUkQjVoOUJmkyGV4pXjIP49iW_qwDadY0GEDQTxMGRGg'
@@ -49,11 +49,12 @@ async function main() {
 }
 main();
 
-declare module 'tsrpc'{
-    export interface ApiCall{
-        currentUser:{
-            username:string,
-            id:ObjectId,
+declare module 'tsrpc' {
+    export interface ApiCall {
+        currentUser: {
+            username: string,
+            id: ObjectId,
+            role: string
         }
     }
 }

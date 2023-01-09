@@ -20,7 +20,8 @@ export default async function (server: BaseServer<ServiceType>) {
                     username: string,
                     id: string,
                     iat: number,
-                    exp: number
+                    exp: number,
+                    role: string
                 }
 
                 //unexpired pass
@@ -33,7 +34,8 @@ export default async function (server: BaseServer<ServiceType>) {
                     // })
                     call.currentUser = {
                         username:res.username,
-                        id:new ObjectId(res.id)
+                        id:new ObjectId(res.id),
+                        role: res.role
                     }
                     
 

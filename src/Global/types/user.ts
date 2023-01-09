@@ -1,4 +1,5 @@
 export interface users{
     name:string,
-    password:string
+    password:string,
+    role: 'student' | 'teacher'
 }

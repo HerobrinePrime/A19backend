@@ -5,7 +5,8 @@ export interface ReqTestToken extends BaseRequest {
 }
 
 export interface ResTestToken extends BaseResponse {
-    username:string
+    username:string,
+    role: string
 }
 
 export const conf: BaseConf = {

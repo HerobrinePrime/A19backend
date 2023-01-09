@@ -1,12 +1,14 @@
-import { BaseResponse,BaseRequest } from '../base';
+import { BaseResponse, BaseRequest } from '../base';
 
 export interface ReqLogin extends BaseRequest {
-    username:string,
-    password:string
+    username: string,
+    password: string
 }
 
 export interface ResLogin extends BaseResponse {
-    token:string ,
+    token: string,
+    role: string,
+    username:string
 }
 
 export const conf = {

@@ -117,6 +117,20 @@ export const serviceProto: ServiceProto<ServiceType> = {
                     "type": {
                         "type": "String"
                     }
+                },
+                {
+                    "id": 1,
+                    "name": "role",
+                    "type": {
+                        "type": "String"
+                    }
+                },
+                {
+                    "id": 2,
+                    "name": "username",
+                    "type": {
+                        "type": "String"
+                    }
                 }
             ]
         },
@@ -150,6 +164,13 @@ export const serviceProto: ServiceProto<ServiceType> = {
                 {
                     "id": 0,
                     "name": "username",
+                    "type": {
+                        "type": "String"
+                    }
+                },
+                {
+                    "id": 1,
+                    "name": "role",
                     "type": {
                         "type": "String"
                     }
