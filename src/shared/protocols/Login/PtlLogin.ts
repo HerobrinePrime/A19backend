@@ -1,14 +1,22 @@
+import { Gender } from '../../../utils/Gender';
 import { BaseResponse, BaseRequest } from '../base';
 
 export interface ReqLogin extends BaseRequest {
-    username: string,
+    email: string,
     password: string
 }
 
 export interface ResLogin extends BaseResponse {
     token: string,
-    role: string,
-    username:string
+    user: {
+        role: string,
+        school: string,
+        name: string,
+        portrait: string,
+        email: string,
+        number: string,
+        gender: number
+    }
 }
 
 export const conf = {
