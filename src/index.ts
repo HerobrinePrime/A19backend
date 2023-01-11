@@ -1,10 +1,12 @@
+import { users } from './Global/types/user';
 import { Global } from './Global/index';
 import * as path from "path";
 import { HttpServer, WsServer } from "tsrpc";
 import { serviceProto } from './shared/protocols/serviceProto';
 import isLogined from './flowNodes/isLogined';
 import { ObjectId } from 'mongodb';
-
+import isGet from './flowNodes/isGet';
+import { serverPort } from './dev.json'
 // Create the Server
 // export const server = new WsServer(serviceProto, {
 //     port: 3000,
@@ -13,12 +15,13 @@ import { ObjectId } from 'mongodb';
 //     logLevel:'warn',
 // });
 export const server = new HttpServer(serviceProto, {
-    port: 3000,
+    port: serverPort,
     json: true,
     logLevel: 'warn',
 })
 
 isLogined(server)
+isGet(server)
 
 // Initialize before server start
 async function init() {
@@ -51,10 +54,6 @@ main();
 
 declare module 'tsrpc' {
     export interface ApiCall {
-        currentUser: {
-            username: string,
-            id: ObjectId,
-            role: string
-        }
+        currentUser: users
     }
 }

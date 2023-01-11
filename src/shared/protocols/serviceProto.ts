@@ -1,5 +1,6 @@
 import { ServiceProto } from 'tsrpc-proto';
 import { ReqLogin, ResLogin } from './Login/PtlLogin';
+import { ReqRegist, ResRegist } from './Login/PtlRegist';
 import { ReqTestToken, ResTestToken } from './Login/PtlTestToken';
 import { ReqSend, ResSend } from './PtlSend';
 
@@ -8,6 +9,10 @@ export interface ServiceType {
         "Login/Login": {
             req: ReqLogin,
             res: ResLogin
+        },
+        "Login/Regist": {
+            req: ReqRegist,
+            res: ResRegist
         },
         "Login/TestToken": {
             req: ReqTestToken,
@@ -24,7 +29,7 @@ export interface ServiceType {
 }
 
 export const serviceProto: ServiceProto<ServiceType> = {
-    "version": 6,
+    "version": 7,
     "services": [
         {
             "id": 5,
@@ -32,6 +37,14 @@ export const serviceProto: ServiceProto<ServiceType> = {
             "type": "api",
             "conf": {
                 "needLogin": false
+            }
+        },
+        {
+            "id": 7,
+            "name": "Login/Regist",
+            "type": "api",
+            "conf": {
+                "needLogin": true
             }
         },
         {
@@ -65,8 +78,8 @@ export const serviceProto: ServiceProto<ServiceType> = {
             ],
             "properties": [
                 {
-                    "id": 0,
-                    "name": "username",
+                    "id": 2,
+                    "name": "email",
                     "type": {
                         "type": "String"
                     }
@@ -113,23 +126,126 @@ export const serviceProto: ServiceProto<ServiceType> = {
                     }
                 },
                 {
-                    "id": 1,
-                    "name": "role",
+                    "id": 3,
+                    "name": "user",
                     "type": {
-                        "type": "String"
-                    }
-                },
-                {
-                    "id": 2,
-                    "name": "username",
-                    "type": {
-                        "type": "String"
+                        "type": "Interface",
+                        "properties": [
+                            {
+                                "id": 0,
+                                "name": "role",
+                                "type": {
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "id": 1,
+                                "name": "school",
+                                "type": {
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "id": 2,
+                                "name": "name",
+                                "type": {
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "id": 3,
+                                "name": "portrait",
+                                "type": {
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "id": 4,
+                                "name": "email",
+                                "type": {
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "id": 5,
+                                "name": "number",
+                                "type": {
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "id": 6,
+                                "name": "gender",
+                                "type": {
+                                    "type": "Number"
+                                }
+                            }
+                        ]
                     }
                 }
             ]
         },
         "base/BaseResponse": {
             "type": "Interface"
+        },
+        "Login/PtlRegist/ReqRegist": {
+            "type": "Interface",
+            "extends": [
+                {
+                    "id": 0,
+                    "type": {
+                        "type": "Reference",
+                        "target": "base/BaseRequest"
+                    }
+                }
+            ],
+            "properties": [
+                {
+                    "id": 0,
+                    "name": "portrait",
+                    "type": {
+                        "type": "Interface",
+                        "properties": [
+                            {
+                                "id": 0,
+                                "name": "fileDate",
+                                "type": {
+                                    "type": "Buffer",
+                                    "arrayType": "Uint8Array"
+                                }
+                            },
+                            {
+                                "id": 1,
+                                "name": "fileType",
+                                "type": {
+                                    "type": "String"
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "Login/PtlRegist/ResRegist": {
+            "type": "Interface",
+            "extends": [
+                {
+                    "id": 0,
+                    "type": {
+                        "type": "Reference",
+                        "target": "base/BaseResponse"
+                    }
+                }
+            ],
+            "properties": [
+                {
+                    "id": 0,
+                    "name": "portrait",
+                    "type": {
+                        "type": "String"
+                    }
+                }
+            ]
         },
         "Login/PtlTestToken/ReqTestToken": {
             "type": "Interface",
@@ -156,17 +272,61 @@ export const serviceProto: ServiceProto<ServiceType> = {
             ],
             "properties": [
                 {
-                    "id": 0,
-                    "name": "username",
+                    "id": 2,
+                    "name": "user",
                     "type": {
-                        "type": "String"
-                    }
-                },
-                {
-                    "id": 1,
-                    "name": "role",
-                    "type": {
-                        "type": "String"
+                        "type": "Interface",
+                        "properties": [
+                            {
+                                "id": 0,
+                                "name": "role",
+                                "type": {
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "id": 1,
+                                "name": "school",
+                                "type": {
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "id": 2,
+                                "name": "name",
+                                "type": {
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "id": 3,
+                                "name": "portrait",
+                                "type": {
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "id": 4,
+                                "name": "email",
+                                "type": {
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "id": 5,
+                                "name": "number",
+                                "type": {
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "id": 6,
+                                "name": "gender",
+                                "type": {
+                                    "type": "Number"
+                                }
+                            }
+                        ]
                     }
                 }
             ]

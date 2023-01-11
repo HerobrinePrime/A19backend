@@ -1,3 +1,4 @@
+import { users } from './../Global/types/user';
 import { Global } from './../Global/index';
 import { ApiCall, BaseServer } from "tsrpc";
 import { secret } from '../dev.json'
@@ -6,7 +7,7 @@ import { ServiceType } from "../shared/protocols/serviceProto";
 import { ObjectId } from 'mongodb';
 
 export default async function (server: BaseServer<ServiceType>) {
-    server.flows.preApiCallFlow.push((call) => {
+    server.flows.preApiCallFlow.push(async (call) => {
         const conf = call.service.conf
         //不需要登录验证
         if (!conf?.needLogin) return call
@@ -14,7 +15,7 @@ export default async function (server: BaseServer<ServiceType>) {
         else {
             console.log('need auth');
             const token = call.req.__token
-            
+
             try {
                 const res = verify(token, secret) as {
                     username: string,
@@ -32,12 +33,11 @@ export default async function (server: BaseServer<ServiceType>) {
                     // }).then(res =>{
                     //     console.log(res);
                     // })
-                    call.currentUser = {
-                        username:res.username,
-                        id:new ObjectId(res.id),
-                        role: res.role
-                    }
-                    
+                    const user = await Global.collection('users').findOne({
+                        _id: new ObjectId(res.id)
+                    })
+                    call.currentUser = user as users
+
 
                     return call
                 }
